@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 240, 240, 240;
+  --primary-color: 0, 128, 96;
+  --secondary-color: 0, 64, 128;
+  --accent-color: 255, 153, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+.btn-primary {
+  @apply bg-[rgb(var(--primary-color))] text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity;
+}
+
+.btn-secondary {
+  @apply bg-[rgb(var(--secondary-color))] text-white px-4 py-2 rounded-md hover:opacity-90 transition-opacity;
+}
+
+.section {
+  @apply py-12 px-4 md:px-8 max-w-7xl mx-auto;
+}
+
+.card {
+  @apply bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow;
+}
+
+.heading-1 {
+  @apply text-4xl md:text-5xl font-bold mb-6;
+}
+
+.heading-2 {
+  @apply text-3xl md:text-4xl font-bold mb-4;
+}
+
+.heading-3 {
+  @apply text-2xl md:text-3xl font-semibold mb-3;
+}
+
+.paragraph {
+  @apply text-base md:text-lg leading-relaxed mb-4;
+}

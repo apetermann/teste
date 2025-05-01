@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferramentas AI - DecarbonMine</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    .language-selector {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 50;
+    }
+    .tool-card {
+      transition: all 0.3s ease;
+    }
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .tool-card a {
+        color: white !important; /* Ensure button text is white */
+    }
+    nav.main-nav {
+      display: flex;
+      justify-content: space-between;
+      width: auto;
+    }
+    nav.main-nav a {
+      padding: 0.5rem 0.75rem;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Language Selector -->
+  <div class="language-selector">
+    <a href="ferramentas-ai.html" class="text-sm font-medium text-gray-700 hover:text-emerald-600 mr-2">PT</a>
+    <span class="text-gray-400">|</span>
+    <a href="ai-tools-en.html" class="text-sm font-medium text-gray-700 hover:text-emerald-600 ml-2">EN</a>
+  </div>
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center flex-shrink-0">
+          <a href="index.html" class="text-2xl font-bold text-emerald-600">DecarbonMine</a>
+        </div>
+        
+        <nav class="hidden md:flex space-x-6 main-nav">
+          <a href="index.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Início</a>
+          <a href="sobre.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Sobre Nós</a>
+          <a href="blog.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Blog</a>
+          <a href="https://ttvsqsal.manus.space" target="_blank" class="text-base font-medium text-gray-700 hover:text-emerald-600">Plataforma</a>
+          <a href="ferramentas-ai.html" class="text-base font-medium text-emerald-600">Ferramentas AI</a>
+          <a href="contato.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Contato</a>
+        </nav>
+        
+        <div class="md:hidden">
+          <button type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none" id="mobile-menu-button">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile menu -->
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href="index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Início</a>
+          <a href="sobre.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Sobre Nós</a>
+          <a href="blog.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Blog</a>
+          <a href="https://ttvsqsal.manus.space" target="_blank" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Plataforma</a>
+          <a href="ferramentas-ai.html" class="block px-3 py-2 text-base font-medium text-emerald-600 bg-gray-100 rounded-md">Ferramentas AI</a>
+          <a href="contato.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Contato</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="gradient-bg py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-white text-center">Ferramentas de Inteligência Artificial</h1>
+      <p class="text-xl text-white text-center mt-4 max-w-3xl mx-auto">
+        Experimente nossas ferramentas de IA que estão revolucionando o mercado de carbono e acelerando a descarbonização industrial.
+      </p>
+    </div>
+  </section>
+
+  <!-- AI Tools Introduction -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+      <div class="bg-white p-8 rounded-lg shadow-md mb-12">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Inteligência Artificial a Serviço da Sustentabilidade</h2>
+        <p class="text-gray-700 mb-4">
+          Na DecarbonMine, desenvolvemos ferramentas avançadas de inteligência artificial especificamente projetadas para o setor de mineração e metalurgia. Nossas soluções combinam algoritmos de aprendizado de máquina, análise preditiva e processamento de big data para transformar a maneira como as empresas abordam a descarbonização.
+        </p>
+        <p class="text-gray-700 mb-4">
+          Cada uma de nossas ferramentas de IA foi desenvolvida para resolver desafios específicos do mercado de carbono e da transição energética industrial. Desde a modelagem preditiva de cenários de descarbonização até o monitoramento em tempo real de emissões via IoT, nossas soluções oferecem insights valiosos e acionáveis para empresas e investidores.
+        </p>
+        <p class="text-gray-700">
+          Explore nossas ferramentas abaixo e descubra como a inteligência artificial pode impulsionar sua estratégia de sustentabilidade e criar valor a partir da descarbonização.
+        </p>
+      </div>
+      
+      <!-- AI Tools Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Tool 1 -->
+        <div class="tool-card bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Modelagem Preditiva" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Modelagem Preditiva de Descarbonização</h3>
+            <p class="text-gray-600 mb-4">
+              Nossa ferramenta de modelagem preditiva utiliza algoritmos avançados de IA para criar cenários personalizados de descarbonização para operações industriais e de mineração, com projeções detalhadas de redução de emissões e retorno financeiro.
+            </p>
+            <div class="flex justify-end">
+              <a href="#" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors">
+                Acessar Ferramenta
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tool 2 -->
+        <div class="tool-card bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1642543348745-03b1219733d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Precificação Dinâmica" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Precificação Dinâmica de Créditos</h3>
+            <p class="text-gray-600 mb-4">
+              Nossa ferramenta de precificação dinâmica analisa dados de mercado, climáticos e regulatórios em tempo real para oferecer a precificação mais precisa e atualizada para créditos de carbono, maximizando o valor para vendedores e compradores.
+            </p>
+            <div class="flex justify-end">
+              <a href="#" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors">
+                Acessar Ferramenta
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tool 3 -->
+        <div class="tool-card bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Auditoria Automatizada" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Auditoria Automatizada</h3>
+            <p class="text-gray-600 mb-4">
+              Nosso sistema de auditoria automatizada utiliza algoritmos de detecção de padrões e anomalias para garantir a integridade e rastreabilidade dos créditos de carbono tokenizados, eliminando fraudes e dupla contagem.
+            </p>
+            <div class="flex justify-end">
+              <a href="#" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors">
+                Acessar Ferramenta
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tool 4 -->
+        <div class="tool-card bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Rotas de Descarbonização" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Rotas de Descarbonização</h3>
+            <p class="text-gray-600 mb-4">
+              Nossa ferramenta de recomendação fornece rotas personalizadas de descarbonização baseadas em benchmarks setoriais e melhores práticas globais, ajudando empresas a identificar as estratégias mais eficientes para reduzir suas emissões.
+            </p>
+            <div class="flex justify-end">
+              <a href="#" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors">
+                Acessar Ferramenta
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tool 5 -->
+        <div class="tool-card bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Análise de Riscos Climáticos" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Análise de Riscos Climáticos</h3>
+            <p class="text-gray-600 mb-4">
+              Nossa ferramenta de análise de riscos avalia os impactos climáticos associados a diferentes projetos e investimentos, com simulações de cenários e quantificação de impactos financeiros para tomada de decisão informada.
+            </p>
+            <div class="flex justify-end">
+              <a href="#" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors">
+                Acessar Ferramenta
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tool 6 -->
+        <div class="tool-card bg-white border border-gray-200 rounded-lg overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80" alt="Monitoramento via IoT" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Monitoramento via IoT</h3>
+            <p class="text-gray-600 mb-4">
+              Nossa plataforma de monitoramento integra dados de dispositivos IoT para acompanhamento em tempo real de emissões e verificação de projetos, garantindo transparência e confiabilidade na geração e verificação de créditos de carbono.
+            </p>
+            <div class="flex justify-end">
+              <a href="#" class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 transition-colors">
+                Acessar Ferramenta
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Casos de Sucesso</h2>
+      
+      <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+        <div class="flex flex-col md:flex-row items-start">
+          <div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0">
+            <img src="https://images.unsplash.com/photo-1601965494578-53762c893c45?fm=jpg&q=80&w=300&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHN1c3RhaW5hYmxlJTIwbWluaW5nfGVufDB8fDB8fHww" alt="Mineradora Sustentável" class="w-full rounded-lg">
+          </div>
+          <div class="md:w-3/4 md:pl-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Mineradora Reduz Emissões em 30%</h3>
+            <p class="text-gray-700 mb-4">
+              Uma das maiores mineradoras do Brasil utilizou nossa ferramenta de Modelagem Preditiva e Rotas de Descarbonização para identificar oportunidades de redução de emissões em suas operações. Em apenas 18 meses, a empresa conseguiu reduzir suas emissões em 30% e gerar créditos de carbono de alta qualidade que foram tokenizados e comercializados em nossa plataforma.
+            </p>
+            <a href="#" class="text-emerald-600 font-medium hover:text-emerald-700">Ler estudo de caso completo →</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white p-8 rounded-lg shadow-md">
+        <div class="flex flex-col md:flex-row items-start">
+          <div class="md:w-1/4 flex-shrink-0 mb-4 md:mb-0">
+            <img src="https://plus.unsplash.com/premium_photo-1661963247622-be10e1ea2c25?fm=jpg&q=80&w=300&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3RlZWwlMjBpbmR1c3RyeXxlbnwwfHwwfHx8MA%3D%3D" alt="Siderúrgica Sustentável" class="w-full rounded-lg">
+          </div>
+          <div class="md:w-3/4 md:pl-8">
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">Siderúrgica Otimiza Investimentos em Descarbonização</h3>
+            <p class="text-gray-700 mb-4">
+              Uma siderúrgica multinacional utilizou nossa ferramenta de Análise de Riscos Climáticos para avaliar diferentes projetos de descarbonização. Com base nos insights gerados, a empresa priorizou investimentos que maximizaram o retorno financeiro e ambiental, resultando em uma redução de 25% nas emissões e um ROI 40% maior do que o inicialmente previsto.
+            </p>
+            <a href="#" class="text-emerald-600 font-medium hover:text-emerald-700">Ler estudo de caso completo →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12 mt-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">DecarbonMine</h3>
+          <p class="text-gray-400 mb-4">
+            Transformando créditos de carbono em ativos digitais de alto valor global para acelerar a descarbonização industrial.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Links Rápidos</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-400 hover:text-white">Início</a></li>
+            <li><a href="sobre.html" class="text-gray-400 hover:text-white">Sobre Nós</a></li>
+            <li><a href="blog.html" class="text-gray-400 hover:text-white">Blog</a></li>
+            <li><a href="https://ttvsqsal.manus.space" target="_blank" class="text-gray-400 hover:text-white">Plataforma</a></li>
+            <li><a href="ferramentas-ai.html" class="text-gray-400 hover:text-white">Ferramentas AI</a></li>
+            <li><a href="contato.html" class="text-gray-400 hover:text-white">Contato</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contato</h3>
+          <ul class="space-y-2">
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span class="text-gray-400">contato@decarbonmine.com.br</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span class="text-gray-400">+55 (11) 9999-0000</span>
+            </li>
+            <li class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 mt-0.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span class="text-gray-400">Av. Paulista, 1000, São Paulo, SP</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+          <p class="text-gray-400 mb-4">
+            Inscreva-se para receber as últimas notícias e atualizações sobre o mercado de carbono.
+          </p>
+          <form>
+            <div class="flex">
+              <input type="email" placeholder="Seu email" class="px-3 py-2 bg-gray-800 text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 flex-grow">
+              <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded-r-md hover:bg-emerald-700 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm">© 2025 DecarbonMine. Todos os direitos reservados.</p>
+        <div class="mt-4 md:mt-0">
+          <a href="#" class="text-gray-400 hover:text-white text-sm mr-4">Termos de Uso</a>
+          <a href="#" class="text-gray-400 hover:text-white text-sm">Política de Privacidade</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', function() {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+</html>

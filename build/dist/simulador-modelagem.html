@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Modelagem Preditiva - DecarbonMine</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: "Open Sans", sans-serif;
+      background-color: #f8f9fa;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Montserrat", sans-serif;
+    }
+    .header-bg {
+      background-image: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+    }
+    .input-field:focus {
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-white shadow-md sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <a href="index.html" class="text-2xl font-bold text-emerald-600">DecarbonMine</a>
+      </div>
+      <nav class="hidden md:flex space-x-8">
+        <a href="index.html" class="text-gray-700 hover:text-emerald-600 font-medium">Início</a>
+        <a href="index.html#sobre" class="text-gray-700 hover:text-emerald-600 font-medium">Sobre Nós</a>
+        <a href="plataforma.html" class="text-gray-700 hover:text-emerald-600 font-medium">Plataforma</a>
+        <a href="index.html#simuladores" class="text-gray-700 hover:text-emerald-600 font-medium">Simuladores</a>
+        <a href="index.html#contato" class="text-gray-700 hover:text-emerald-600 font-medium">Contato</a>
+      </nav>
+      <div>
+        <a href="index.html#demo" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
+          Agendar Demo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="header-bg text-white py-12">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Simulador de Modelagem Preditiva de Descarbonização</h1>
+      <p class="text-xl max-w-3xl mx-auto">
+        Simule cenários personalizados de descarbonização para operações industriais e mineradoras, com projeções de redução de emissões e retorno financeiro.
+      </p>
+    </div>
+  </section>
+
+  <!-- Simulador Section -->
+  <section class="py-12">
+    <div class="container mx-auto px-4">
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Painel de Entrada -->
+          <div class="md:col-span-1">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Parâmetros de Simulação</h2>
+            
+            <form id="simulationForm" class="space-y-6">
+              <div>
+                <label for="industry" class="block text-sm font-medium text-gray-700 mb-1">Setor Industrial</label>
+                <select id="industry" class="w-full border border-gray-300 rounded-md px-3 py-2 input-field focus:outline-none">
+                  <option value="mining">Mineração</option>
+                  <option value="steel">Siderurgia</option>
+                  <option value="cement">Cimento</option>
+                  <option value="aluminum">Alumínio</option>
+                  <option value="chemical">Químico</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="emissionLevel" class="block text-sm font-medium text-gray-700 mb-1">Nível Atual de Emissões (tCO2e/ano)</label>
+                <input type="number" id="emissionLevel" min="1000" max="10000000" value="500000" class="w-full border border-gray-300 rounded-md px-3 py-2 input-field focus:outline-none">
+              </div>
+              
+              <div>
+                <label for="reductionTarget" class="block text-sm font-medium text-gray-700 mb-1">Meta de Redução (%)</label>
+                <input type="range" id="reductionTarget" min="5" max="50" value="30" class="w-full input-field focus:outline-none">
+                <div class="flex justify-between text-xs text-gray-500">
+                  <span>5%</span>
+                  <span>30%</span>
+                  <span>50%</span>
+                </div>
+              </div>
+              
+              <div>
+                <label for="timeframe" class="block text-sm font-medium text-gray-700 mb-1">Período de Implementação (anos)</label>
+                <select id="timeframe" class="w-full border border-gray-300 rounded-md px-3 py-2 input-field focus:outline-none">
+                  <option value="3">3 anos</option>
+                  <option value="5" selected>5 anos</option>
+                  <option value="10">10 anos</option>
+                  <option value="15">15 anos</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">Orçamento Disponível (R$ milhões)</label>
+                <input type="number" id="budget" min="1" max="1000" value="50" class="w-full border border-gray-300 rounded-md px-3 py-2 input-field focus:outline-none">
+              </div>
+              
+              <div>
+                <label for="carbonPrice" class="block text-sm font-medium text-gray-700 mb-1">Preço Estimado do Crédito de Carbono (R$/tCO2e)</label>
+                <input type="number" id="carbonPrice" min="10" max="500" value="120" class="w-full border border-gray-300 rounded-md px-3 py-2 input-field focus:outline-none">
+              </div>
+              
+              <div class="pt-4">
+                <button type="button" id="simulateBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300">
+                  Simular Cenário
+                </button>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Painel de Resultados -->
+          <div class="md:col-span-2">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Resultados da Simulação</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+                <h3 class="text-lg font-bold mb-2 text-gray-800">Redução Total de Emissões</h3>
+                <p class="text-3xl font-bold text-emerald-600" id="totalReduction">150.000 tCO2e</p>
+                <p class="text-sm text-gray-600 mt-2">Redução total ao longo do período de implementação</p>
+              </div>
+              
+              <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+                <h3 class="text-lg font-bold mb-2 text-gray-800">Valor Total dos Créditos</h3>
+                <p class="text-3xl font-bold text-emerald-600" id="totalValue">R$ 18.000.000</p>
+                <p class="text-sm text-gray-600 mt-2">Valor estimado dos créditos de carbono gerados</p>
+              </div>
+              
+              <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+                <h3 class="text-lg font-bold mb-2 text-gray-800">ROI Estimado</h3>
+                <p class="text-3xl font-bold text-emerald-600" id="estimatedROI">260%</p>
+                <p class="text-sm text-gray-600 mt-2">Retorno sobre investimento ao final do período</p>
+              </div>
+              
+              <div class="bg-emerald-50 p-6 rounded-lg border border-emerald-200">
+                <h3 class="text-lg font-bold mb-2 text-gray-800">Payback Period</h3>
+                <p class="text-3xl font-bold text-emerald-600" id="paybackPeriod">2.3 anos</p>
+                <p class="text-sm text-gray-600 mt-2">Tempo para recuperar o investimento inicial</p>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h3 class="text-lg font-bold mb-4 text-gray-800">Projeção de Redução de Emissões</h3>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 h-64">
+                  <canvas id="emissionsChart"></canvas>
+                </div>
+              </div>
+              
+              <div>
+                <h3 class="text-lg font-bold mb-4 text-gray-800">Projeção de Fluxo de Caixa</h3>
+                <div class="bg-white p-4 rounded-lg border border-gray-200 h-64">
+                  <canvas id="cashFlowChart"></canvas>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8 bg-blue-50 p-6 rounded-lg border border-blue-200">
+              <h3 class="text-lg font-bold mb-2 text-gray-800">Recomendações Personalizadas</h3>
+              <ul class="space-y-2 text-gray-700" id="recommendations">
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Implementar sistema de captura de metano nas operações de mineração para redução imediata de 15% nas emissões.</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Substituir 40% da frota de veículos pesados por modelos elétricos ou híbridos nos próximos 3 anos.</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Investir em energia renovável local (solar e eólica) para reduzir dependência de fontes fósseis em 25%.</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>Tokenizar os créditos de carbono gerados para maximizar o valor e liquidez no mercado global.</span>
+                </li>
+              </ul>
+            </div>
+            
+            <div class="mt-8 text-center">
+              <a href="plataforma.html" class="inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300">
+                Experimentar a Plataforma
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8 mt-12">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-gray-400">&copy; 2025 DecarbonMine. Todos os direitos reservados.</p>
+      <div class="mt-4">
+        <a href="index.html" class="text-gray-400 hover:text-white mx-3 transition duration-300">Início</a>
+        <a href="index.html#sobre" class="text-gray-400 hover:text-white mx-3 transition duration-300">Sobre Nós</a>
+        <a href="plataforma.html" class="text-gray-400 hover:text-white mx-3 transition duration-300">Plataforma</a>
+        <a href="index.html#simuladores" class="text-gray-400 hover:text-white mx-3 transition duration-300">Simuladores</a>
+        <a href="index.html#contato" class="text-gray-400 hover:text-white mx-3 transition duration-300">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Inicializar gráficos
+    const emissionsCtx = document.getElementById('emissionsChart').getContext('2d');
+    const cashFlowCtx = document.getElementById('cashFlowChart').getContext('2d');
+    
+    // Dados iniciais
+    const years = [2025, 2026, 2027, 2028, 2029, 2030];
+    const initialEmissions = [500000, 450000, 400000, 350000, 325000, 300000];
+    const initialCashFlow = [-50000000, 10000000, 15000000, 20000000, 25000000, 30000000];
+    
+    // Gráfico de Emissões
+    const emissionsChart = new Chart(emissionsCtx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Emissões (tCO2e)',
+          data: initialEmissions,
+          backgroundColor: 'rgba(16, 185, 129, 0.2)',
+          borderColor: 'rgba(16, 185, 129, 1)',
+          borderWidth: 2,
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: false,
+            title: {
+              display: true,
+              text: 'Emissões (tCO2e)'
+            }
+          }
+        }
+      }
+    });
+    
+    // Gráfico de Fluxo de Caixa
+    const cashFlowChart = new Chart(cashFlowCtx, {
+      type: 'bar',
+      data: {
+        labels: years,
+        datasets: [{
+          label: 'Fluxo de Caixa (R$)',
+          data: initialCashFlow,
+          backgroundColor: function(context) {
+            const value = context.dataset.data[context.dataIndex];
+            return value < 0 ? 'rgba(239, 68, 68, 0.7)' : 'rgba(16, 185, 129, 0.7)';
+          },
+          borderColor: function(context) {
+            const value = context.dataset.data[context.dataIndex];
+            return value < 0 ? 'rgb(220, 38, 38)' : 'rgb(5, 150, 105)';
+          },
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            title: {
+              display: true,
+              text: 'Fluxo de Caixa (R$)'
+            }
+          }
+        }
+      }
+    });
+    
+    // Função para atualizar a simulação
+    document.getElementById('simulateBtn').addEventListener('click', function() {
+      // Obter valores do formulário
+      const industry = document.getElementById('industry').value;
+      const emissionLevel = parseInt(document.getElementById('emissionLevel').value);
+      const reductionTarget = parseInt(document.getElementById('reductionTarget').value) / 100;
+      const timeframe = parseInt(document.getElementById('timeframe').value);
+      const budget = parseFloat(document.getElementById('budget').value) * 1000000; // Converter para milhões
+      const carbonPrice = parseFloat(document.getElementById('carbonPrice').value);
+      
+      // Calcular resultados
+      const totalReduction = emissionLevel * reductionTarget * timeframe;
+      const totalValue = totalReduction * carbonPrice;
+      const roi = (totalValue / budget) * 100;
+      const payback = budget / (totalValue / timeframe);
+      
+      // Atualizar exibição dos resultados
+      document.getElementById('totalReduction').textContent = totalReduction.toLocaleString() + ' tCO2e';
+      document.getElementById('totalValue').textContent = 'R$ ' + totalValue.toLocaleString();
+      document.getElementById('estimatedROI').textContent = roi.toFixed(0) + '%';
+      document.getElementById('paybackPeriod').textContent = payback.toFixed(1) + ' anos';
+      
+      // Gerar novos dados para os gráficos
+      const newYears = [];
+      const newEmissions = [];
+      const newCashFlow = [];
+      
+      const currentYear = new Date().getFullYear();
+      const yearlyReduction = emissionLevel * reductionTarget / timeframe;
+      
+      for (let i = 0; i <= timeframe; i++) {
+        newYears.push(currentYear + i);
+        newEmissions.push(emissionLevel - (yearlyReduction * i));
+        
+        if (i === 0) {
+          newCashFlow.push(-budget);
+        } else {
+          const yearlyValue = yearlyReduction * carbonPrice;
+          newCashFlow.push(yearlyValue);
+        }
+      }
+      
+      // Atualizar gráficos
+      emissionsChart.data.labels = newYears;
+      emissionsChart.data.datasets[0].data = newEmissions;
+      emissionsChart.update();
+      
+      cashFlowChart.data.labels = newYears;
+      cashFlowChart.data.datasets[0].data = newCashFlow;
+      cashFlowChart.update();
+      
+      // Atualizar recomendações baseadas no setor
+      const recommendationsElement = document.getElementById('recommendations');
+      recommendationsElement.innerHTML = '';
+      
+      let recommendations = [];
+      
+      switch(industry) {
+        case 'mining':
+          recommendations = [
+            'Implementar sistema de captura de metano nas operações de mineração para redução imediata de 15% nas emissões.',
+            'Substituir 40% da frota de veículos pesados por modelos elétricos ou híbridos nos próximos 3 anos.',
+            'Investir em energia renovável local (solar e eólica) para reduzir dependência de fontes fósseis em 25%.',
+            'Tokenizar os créditos de carbono gerados para maximizar o valor e liquidez no mercado global.'
+          ];
+          break;
+        case 'steel':
+          recommendations = [
+            'Implementar tecnologia de redução direta de ferro (DRI) com hidrogênio verde para reduzir emissões em até 30%.',
+            'Aumentar o uso de sucata reciclada na produção de aço para reduzir a necessidade de minério virgem.',
+            'Modernizar fornos para maior eficiência energética, com potencial de redução de 15% nas emissões.',
+            'Desenvolver parcerias com fornecedores para reduzir emissões na cadeia de valor (Escopo 3).'
+          ];
+          break;
+        case 'cement':
+          recommendations = [
+            'Substituir parcialmente o clínquer por materiais cimentícios suplementares para reduzir emissões em 20%.',
+            'Implementar tecnologia de captura e armazenamento de carbono (CCS) nas unidades de maior emissão.',
+            'Utilizar combustíveis alternativos derivados de resíduos em substituição a combustíveis fósseis.',
+            'Investir em cimentos de baixo carbono com tecnologias inovadoras de carbonatação.'
+          ];
+          break;
+        case 'aluminum':
+          recommendations = [
+            'Migrar para energia 100% renovável na eletrólise do alumínio, reduzindo emissões em até 60%.',
+            'Implementar tecnologia de ânodos inertes para eliminar emissões diretas de processo.',
+            'Aumentar o uso de alumínio reciclado, que requer apenas 5% da energia do alumínio primário.',
+            'Otimizar processos de fundição com sistemas avançados de controle para reduzir consumo energético.'
+          ];
+          break;
+        case 'chemical':
+          recommendations = [
+            'Implementar eletrificação de processos térmicos com energia renovável para reduzir emissões em 25%.',
+            'Substituir matérias-primas fósseis por alternativas biológicas ou recicladas quando possível.',
+            'Investir em catalisadores avançados para aumentar a eficiência de reações e reduzir energia.',
+            'Implementar sistemas de recuperação de calor residual para reduzir consumo energético em 15%.'
+          ];
+          break;
+      }
+      
+      recommendations.forEach(rec => {
+        const li = document.createElement('li');
+        li.className = 'flex items-start';
+        li.innerHTML = `
+          <svg class="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>${rec}</span>
+        `;
+        recommendationsElement.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
