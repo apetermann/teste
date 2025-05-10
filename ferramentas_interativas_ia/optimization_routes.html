@@ -1,61 +1,227 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Otimização de Rotas - DecarbonMine</title>
-    <link rel="stylesheet" href="../style.css"> <!-- Supondo um CSS global na raiz ou ajustar caminho -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otimização de Rotas de Transporte - DecarbonMine</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Adicionar Leaflet CSS se for usar mapa interativo real (simulado por enquanto) -->
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" /> -->
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    }
+    .form-input:focus, .form-select:focus {
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+    .map-placeholder {
+      background-color: #e9ecef;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #6c757d;
+      border-radius: 0.5rem;
+      border: 1px dashed #ced4da;
+    }
+    .loader {
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #10b981;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none; 
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
-<body>
-    <header>
-        <div class="container">
-            <h1>DecarbonMine</h1>
-            <nav>
-                <ul>
-                    <li><a href="../index.html">Início</a></li>
-                    <li><a href="../sobre.html">Sobre Nós</a></li>
-                    <li><a href="./index.html">Ferramentas AI</a></li> <!-- Link para o índice das ferramentas -->
-                    <li><a href="../contato.html">Contato</a></li>
-                </ul>
-            </nav>
+<body class="bg-gray-50">
+  <!-- Header (similar ao modelagem-preditiva.html) -->
+  <header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <a href="../index.html" class="text-2xl font-bold text-emerald-600">DecarbonMine</a>
         </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h2>Otimização de Rotas de Transporte</h2>
-                <p class="subtitulo">Planeje rotas mais eficientes para reduzir custos, tempo e emissões de carbono no transporte de seus materiais.</p>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <div class="container">
-                <h3>Como Funciona?</h3>
-                <p>Nossa ferramenta de otimização de rotas utiliza algoritmos avançados para analisar diversas variáveis, como distância, modais de transporte, custos de combustível, pedágios e restrições de tráfego, para propor as rotas mais econômicas e sustentáveis. Insira os detalhes da sua carga, origem e destino, e deixe que nossa IA encontre o melhor caminho.</p>
-                
-                <h3>Principais Funcionalidades</h3>
-                <ul>
-                    <li>Comparação de múltiplas opções de rota (custo, tempo, emissões).</li>
-                    <li>Visualização das rotas em mapa interativo (simulado).</li>
-                    <li>Consideração de diferentes modais de transporte (rodoviário, ferroviário, marítimo).</li>
-                    <li>Cálculo de emissões de GEE por rota.</li>
-                    <li>Interface intuitiva para inserção de dados e visualização de resultados.</li>
-                </ul>
-
-                <h3>Simule sua Rota</h3>
-                <p>Em breve, você poderá interagir com nossa simulação aqui. Por enquanto, entre em contato para saber como podemos otimizar sua logística.</p>
-                <a href="../contato.html" class="btn">Solicitar Consultoria</a>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 DecarbonMine. Todos os direitos reservados.</p>
+        <nav class="hidden md:flex space-x-8">
+          <a href="../index.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Início</a>
+          <a href="../sobre.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Sobre Nós</a>
+          <a href="../blog.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Blog</a>
+          <a href="index.html" class="text-base font-medium text-emerald-600">Ferramentas AI</a>
+          <a href="../contato.html" class="text-base font-medium text-gray-700 hover:text-emerald-600">Contato</a>
+        </nav>
+        <div class="md:hidden">
+          <button type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none" id="mobile-menu-button-opt">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
         </div>
-    </footer>
+      </div>
+      <div class="md:hidden hidden" id="mobile-menu-opt">
+        <div class="px-2 pt-2 pb-3 space-y-1">
+          <a href="../index.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Início</a>
+          <a href="../sobre.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Sobre Nós</a>
+          <a href="../blog.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Blog</a>
+          <a href="index.html" class="block px-3 py-2 text-base font-medium text-emerald-600 bg-gray-100 rounded-md">Ferramentas AI</a>
+          <a href="../contato.html" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 rounded-md">Contato</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <!-- Page Header -->
+  <section class="gradient-bg py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold text-white text-center">Otimização de Rotas de Transporte</h1>
+      <p class="text-xl text-white text-center mt-4 max-w-3xl mx-auto">
+        Planeje rotas mais eficientes para reduzir custos, tempo e emissões de carbono no transporte de seus materiais.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column - Input Form -->
+        <div class="lg:col-span-1">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">Parâmetros da Rota</h2>
+            <form id="route-optimization-form" class="space-y-6">
+              <div>
+                <label for="transport-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Transporte</label>
+                <select id="transport-type" name="transport-type" class="form-select block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-emerald-500">
+                  <option value="truck">Caminhão</option>
+                  <option value="train">Trem</option>
+                  <option value="ship">Navio</option>
+                  <option value="combined">Combinado</option>
+                </select>
+              </div>
+              <div>
+                <label for="origin" class="block text-sm font-medium text-gray-700 mb-1">Origem (ex: Cidade, Estado)</label>
+                <input type="text" id="origin" name="origin" value="Mina X, Brasil" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label for="destination" class="block text-sm font-medium text-gray-700 mb-1">Destino (ex: Porto Y, País)</label>
+                <input type="text" id="destination" name="destination" value="Porto Z, China" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label for="cargo-type" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Carga</label>
+                <select id="cargo-type" name="cargo-type" class="form-select block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-emerald-500">
+                  <option value="iron_ore">Minério de Ferro</option>
+                  <option value="coal">Carvão</option>
+                  <option value="bauxite">Bauxita</option>
+                  <option value="general_cargo">Carga Geral</option>
+                </select>
+              </div>
+              <div>
+                <label for="cargo-volume" class="block text-sm font-medium text-gray-700 mb-1">Volume/Peso da Carga (toneladas)</label>
+                <input type="number" id="cargo-volume" name="cargo-volume" value="10000" min="100" class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label for="optimization-priority" class="block text-sm font-medium text-gray-700 mb-1">Prioridade de Otimização</label>
+                <select id="optimization-priority" name="optimization-priority" class="form-select block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-emerald-500 focus:ring-emerald-500">
+                  <option value="cost">Menor Custo</option>
+                  <option value="emissions">Menor Emissão de GEE</option>
+                  <option value="time">Menor Tempo de Trânsito</option>
+                  <option value="balanced" selected>Equilíbrio entre os três</option>
+                </select>
+              </div>
+              <div>
+                <button type="button" id="optimize-route-button" class="w-full px-4 py-3 bg-emerald-600 text-white font-medium rounded-md hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors">
+                  Otimizar Rota
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Right Column - Results -->
+        <div class="lg:col-span-2">
+          <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold text-gray-900 mb-6">Resultados da Otimização</h2>
+            <div id="route-loader" class="loader"></div>
+            
+            <div id="route-map-container" class="mb-8" style="display: none;">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Visualização da Rota (Simulada)</h3>
+              <div id="map-placeholder" class="map-placeholder">
+                <p>Mapa interativo será exibido aqui.</p>
+              </div>
+            </div>
+
+            <div id="route-summary-container" style="display: none;">
+              <h3 class="text-lg font-medium text-gray-900 mb-4">Comparativo de Rotas</h3>
+              <div id="route-options-table" class="overflow-x-auto">
+                <!-- Tabela de rotas será inserida aqui pelo JavaScript -->
+              </div>
+            </div>
+
+            <div id="selected-route-details-container" class="mt-8" style="display: none;">
+                <h3 class="text-lg font-medium text-gray-900 mb-4">Detalhes da Rota Selecionada</h3>
+                <div id="selected-route-info" class="bg-gray-50 p-4 rounded-lg">
+                    <!-- Detalhes da rota selecionada -->
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (similar ao modelagem-preditiva.html) -->
+  <footer class="bg-gray-900 text-white py-12 mt-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <h3 class="text-lg font-semibold mb-4">DecarbonMine</h3>
+              <p class="text-gray-400 mb-4 text-sm">Transformando créditos de carbono em ativos digitais de alto valor global para acelerar a descarbonização industrial.</p>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-400 mb-4">Navegação</h3>
+              <ul class="space-y-2">
+                <li><a href="../index.html" class="text-sm text-gray-400 hover:text-white">Início</a></li>
+                <li><a href="../sobre.html" class="text-sm text-gray-400 hover:text-white">Sobre Nós</a></li>
+                <li><a href="../blog.html" class="text-sm text-gray-400 hover:text-white">Blog</a></li>
+                <li><a href="index.html" class="text-sm text-gray-400 hover:text-white">Ferramentas AI</a></li>
+                <li><a href="../contato.html" class="text-sm text-gray-400 hover:text-white">Contato</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-400 mb-4">Legal</h3>
+              <ul class="space-y-2">
+                <li><a href="#" class="text-sm text-gray-400 hover:text-white">Termos de Serviço</a></li>
+                <li><a href="#" class="text-sm text-gray-400 hover:text-white">Política de Privacidade</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-400 mb-4">Siga-nos</h3>
+              <div class="flex space-x-4">
+                <a href="#" class="text-gray-400 hover:text-white"><span class="sr-only">Facebook</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+                <a href="#" class="text-gray-400 hover:text-white"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg></a>
+              </div>
+            </div>
+          </div>
+      <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+        <p class="text-sm text-gray-400">&copy; 2024 DecarbonMine. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../scripts/mobile_menu.js"></script> <!-- Reutilizar script do menu mobile -->
+  <script src="../scripts/optimization_routes.js"></script>
 </body>
 </html>
 
